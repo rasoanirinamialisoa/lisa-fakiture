@@ -19,8 +19,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to Render
-        run: |
-          npm install -g @render/cli
-          render deploy -- --name lisaFlow --branch main
-        env:
+        uses: render-com/action@v1
+        with:
           RENDER_TOKEN: ${{ secrets.RENDER_API_KEY }}
+          RENDER_PROJECT: <lisaFlow>
