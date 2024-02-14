@@ -1,25 +1,21 @@
 name: CD
-
 on:
   push:
     branches:
-      - prod  # Modifier en fonction de votre branche principale
+      - prod
 
 jobs:
   deploy:
+    name: Track Render Deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Next.js app
-        run: npm run build
-
-      - name: Deploy to Render
-        uses: render-com/action@v1
+      - name: Track Render Deployment
+        uses: bounceapp/render-action@0.6.0
         with:
-          RENDER_TOKEN: ${{ secrets.RENDER_API_KEY }}
-          RENDER_PROJECT: <lisaFlow>
+          render-token: ${{ github.secret_source.RENDER_TOKEN }}
+          render-variables: ${{ github.ENV.PROD_CLUSTER }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          service-id: srv-cn6i9pocmk4c73e137u0
+          retries: 20
+          wait: 16000
+          sleep: 30000
