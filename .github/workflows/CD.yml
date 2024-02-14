@@ -12,7 +12,7 @@ jobs:
       - name: Track Render Deployment
         uses: bounceapp/render-action@0.6.0
         with:
-          render-token: ${{ github.secret_source.RENDER_TOKEN }}
+          render-token: ${{ secrets.RENDER_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           service-id: srv-cn6i9pocmk4c73e137u0
           retries: 20
