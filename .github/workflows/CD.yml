@@ -3,20 +3,22 @@ name: CD
 on:
   push:
     branches:
-      - prod
+      - prod  # Modifier en fonction de votre branche principale
 
 jobs:
   deploy:
-    name: Wait for Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js app
+        run: npm run build
+
       - name: Deploy to Render
-        uses: some-action/use-here@v1
-        with:
-          render-token: ${{ secrets.RENDER_API_KEY }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          service-id: srv-xxxxxxxxxxxxxxxxxxxx
-          retries: 20
-          wait: 16000
-          sleep: 30000
-       
+        run: npm install -g @render/cli render deploy -- --name lisaFlow --branch main
+        env:
+          RENDER_TOKEN: ${{ secrets.RENDER_API_KEY }}
