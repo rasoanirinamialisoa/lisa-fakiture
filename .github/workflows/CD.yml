@@ -1,0 +1,36 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build application
+      run: npm run build
+
+    - name: Deploy to Render
+      uses: render-com/action@v1
+      with:
+        render-token: ${{ secrets.RENDER_API_KEY }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        service-id: srv-xxxxxxxxxxxxxxxxxxxx
+        retries: 20
+        wait: 16000
+        sleep: 30000
+        DIRECTORY: .next  # ou le chemin relatif vers le dossier de construction de Next.js
