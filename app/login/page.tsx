@@ -31,7 +31,7 @@ export default function LoginPage() {
   };
   return (
     <div className="flex flex-col gap-6">
-      <h1 className={title()}>Login BE </h1>
+      <h1 className={title()}>Login BEtsaka </h1>
       <div className="flex flex-col gap-2">
         <Input
           variant="bordered"
